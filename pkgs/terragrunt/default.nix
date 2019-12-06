@@ -1,5 +1,7 @@
 { stdenv, lib, buildGoPackage, fetchFromGitHub, terraform, makeWrapper }:
 
+# Didin't get it to work using overlays. (overrdigin src and godeps resulted
+# in build failures).
 buildGoPackage rec {
   pname = "terragrunt";
   version = "0.21.6";
