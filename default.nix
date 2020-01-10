@@ -8,6 +8,11 @@ in
     terraform = unstable.terraform_0_12;
   };
 
+  terrafrom_0_12_16 = super.terraform_0_12.overrideAttrs (old: {
+    version = "0.12.16";
+    sha256 = "10r9vra4d3lyms9cvl0g1ij6ldcfi3vjrqsmd52isrmlmjdzm8nk";
+  });
+
   packer_1_4_5 = super.packer.overrideAttrs (old: {
     version = "1.4.5";
     src = super.fetchFromGitHub {
