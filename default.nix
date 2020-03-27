@@ -4,10 +4,6 @@ let
   unstable = import (fetchTarball https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz) { };
 in
 {
-  terragrunt_0_21_6 = super.callPackage ./pkgs/terragrunt {
-    terraform = unstable.terraform_0_12;
-  };
-
   terraform_0_12_16 = super.terraform_0_12.overrideAttrs (old: {
     version = "0.12.16";
     src = super.fetchFromGitHub {
@@ -27,6 +23,10 @@ in
         sha256 = "1rjihp6qcaizp2nnv4z20kpmjnqcw95pq5rnhq381a3pdzr0cd0z";
     };
   });
+
+  terragrunt_0_21_6 = super.callPackage ./pkgs/terragrunt {
+    terraform = self.terraform_0_12_24;
+  };
 
   packer_1_4_5 = super.packer.overrideAttrs (old: {
     version = "1.4.5";
