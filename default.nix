@@ -18,6 +18,16 @@ in
     };
   });
 
+  terraform_0_12_24 = super.terraform_0_12.overrideAttrs (old: {
+    version = "0.12.24";
+    src = super.fetchFromGitHub {
+        owner = "hashicorp";
+        repo = "terraform";
+        rev = "v0.12.24";
+        sha256 = "1rjihp6qcaizp2nnv4z20kpmjnqcw95pq5rnhq381a3pdzr0cd0z";
+    };
+  });
+
   packer_1_4_5 = super.packer.overrideAttrs (old: {
     version = "1.4.5";
     src = super.fetchFromGitHub {
