@@ -21,7 +21,7 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/terragrunt \
-      --set TERRAGRUNT_TFPATH ${lib.getBin terraform.full}/bin/terraform
+      --set TERRAGRUNT_TFPATH ${lib.getBin terraform}/bin/terraform
   '';
 
   meta = with stdenv.lib; {
