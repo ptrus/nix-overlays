@@ -1,34 +1,27 @@
-{ stdenv, lib, buildGoPackage, fetchFromGitHub, terraform, makeWrapper }:
+{ stdenv, lib, buildGoModule, fetchFromGitHub, terraform, makeWrapper }:
 
-# Didin't get it to work using overlays. (overrdigin src and godeps resulted
-# in build failures).
-buildGoPackage rec {
+buildGoModule rec {
   pname = "terragrunt";
-  version = "0.21.6";
-
-  goPackagePath = "github.com/gruntwork-io/terragrunt";
+  version = "0.23.4";
 
   src = fetchFromGitHub {
     owner  = "gruntwork-io";
     repo   = "terragrunt";
     rev    = "v${version}";
-    sha256 = "1agpwj8vgng0z63by51d3qg8j26x0i0sa1xcmcs7dar75qjl6zhv";
+    sha256 = "0rlkrigfisl2c83diw443x4mn4c5c9pvnx660yf5226jcy5kipms";
   };
 
-  goDeps = ./deps.nix;
+  vendorSha256 = "10d4wy5dp4y56mqk7f9fnib4605xyly3m7k7h0drk2di4kwjl0nn";
 
   buildInputs = [ makeWrapper ];
 
-  # Remove vendor folder as it leads to compliation errors with 'buildGoPackage'.
   preBuild = ''
-    rm -rf $NIX_BUILD_TOP/go/src/github.com/hashicorp/terraform/vendor
-
     buildFlagsArray+=("-ldflags" "-X main.VERSION=v${version}")
   '';
 
   postInstall = ''
-    wrapProgram $bin/bin/terragrunt \
-      --set TERRAGRUNT_TFPATH "${lib.getBin terraform}/bin/terraform"
+    wrapProgram $out/bin/terragrunt \
+      --set TERRAGRUNT_TFPATH ${lib.getBin terraform.full}/bin/terraform
   '';
 
   meta = with stdenv.lib; {

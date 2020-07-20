@@ -24,7 +24,7 @@ in
     };
   });
 
-  terragrunt_0_21_6 = super.callPackage ./pkgs/terragrunt {
+  terragrunt_0_23_4 = super.callPackage ./pkgs/terragrunt {
     terraform = self.terraform_0_12_24;
   };
 
