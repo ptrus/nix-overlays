@@ -39,4 +39,15 @@ in
     };
   });
 
+  restic_9_5 = super.restic.overrideAttrs (old: {
+    buildFlags = [ "-tags debug" ];
+    version = "0.9.5";
+    src = super.fetchFromGitHub {
+      owner = "restic";
+      repo = "restic";
+      rev = "v0.9.5";
+      # nix-prefetch-git --url https://github.com/restic/restic --rev v${version}
+      sha256 = "1bhn3xwlycpnjg2qbqblwxn3apj43lr5cakgkmrblk13yfwfv5xv";
+    };
+  });
 }
