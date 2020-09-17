@@ -50,4 +50,6 @@ in
       sha256 = "1bhn3xwlycpnjg2qbqblwxn3apj43lr5cakgkmrblk13yfwfv5xv";
     };
   });
+
+  ledger-live-desktop_2_11_1 = super.callPackage ./pkgs/ledger-live-desktop {};
 }
